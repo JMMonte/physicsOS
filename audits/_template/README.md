@@ -5,6 +5,11 @@ conventions: <SI | natural | Planck>; <metric signature>; <Fourier convention if
 verdict: <confirmed | confirmed-with-caveat | contradicted | inconclusive>
 audit_layers: [<dimensional>, <limits>, <order-of-magnitude>, <symbolic>, <numerical>, <data-comparison>]
 created: <YYYY-MM-DD>
+peer_reviewed: <YYYY-MM-DD | n/a>
+reviewer_verdicts:
+  devil_advocate: <verdict | n/a>
+  source_fidelity: <verdict | n/a>
+  reproducibility: <verdict | n/a>
 ---
 
 # <human title of the audit>

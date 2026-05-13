@@ -26,9 +26,19 @@ And optionally:
 
 ```
 outputs/          ← plots, small CSVs (NOT large datasets — link to source)
+reviews/          ← per-role peer-review reports (see AGENTS.md §2.6)
 requirements.txt  ← pinned versions, if reproducibility hinges on them
 data/             ← only if small and the audit cannot be re-derived without it
 ```
+
+## Peer review
+
+Any audit whose verdict moves a claim's status or triggers a §3.3 veto should
+be peer-reviewed by three independent subagents (devil's advocate, source
+fidelity, reproducibility) before its verdict is taken as final. See
+[AGENTS.md §2.6](../AGENTS.md#26-peer-review) for the protocol and the prompt
+templates. Reviews land in `audits/<slug>/reviews/` and are committed alongside
+the audit.
 
 ## Verdict vocabulary
 
