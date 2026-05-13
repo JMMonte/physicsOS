@@ -98,159 +98,76 @@ Use [`audits/_template/`](audits/_template/) as a starting point.
 
 ### 2.6 Peer review
 
-An audit reviewed only by its author is not peer-reviewed — the author's priors flow into both the writing and the checking. The fix is **cross-context subagent peer review**: spawn fresh agents that see the artifacts but not the author's reasoning, and let them produce independent reports.
+An audit reviewed only by its author is not peer-reviewed — the author's priors flow into both the writing and the checking. Even subagents with fresh context windows are still poisoned if they have access to the live repo, because the audit's verdict, prior reviews, the claim's confidence, the examples walkthrough, and the changelog are all in the working directory.
+
+The fix is **sandboxed cross-context peer review**: build a temporary directory containing only the premises a reviewer should see — stripped audit README, raw script + output, claim-statement-only, protocol docs — and point fresh subagents at *that* directory rather than the live repo. The author's conclusions are literally not on disk in the reviewer's working environment.
 
 **When to peer-review.** Always for an audit whose verdict moves a claim's `status` or triggers a veto in §3.3. Optional for incidental sub-audits that don't change a claim's state.
 
-**Isolation rules.** Each reviewer subagent is invoked with the `Agent` tool — fresh context window. Each gets, in its prompt:
+**Sandbox lifecycle.** Three scripts do the work; the orchestrator (author) drives them.
 
-- A pointer to `CLAUDE.md`, `AGENTS.md`, `papers/README.md`, `claims/README.md`, `audits/README.md`.
-- A pointer to the audit (`audits/<slug>/README.md`, `audits/<slug>/audit.py`).
-- A pointer to the claim file linked from the audit's frontmatter.
-- A pointer to every paper note linked from the audit.
+```
+scripts/prepare-review.sh <audit-slug> [round-number]   # build sandbox
+  ↓ creates /tmp/physicsos-review-<slug>-r<N>-<ts>/
+  ↓ strips audit README (frontmatter verdict/peer_reviewed/reviewer_verdicts;
+                          sections: Result, Verdict, Caveats and unresolved,
+                          Issues surfaced by peer review, How the company
+                          can rebut, Changelog)
+  ↓ rewrites paper-note links in "Sources used" to raw URLs/DOIs
+  ↓ strips claim file to "Precise statement" + "Why we are tracking this"
+  ↓ captures fresh stdout of one audit.py run as audit_raw_output.txt
+  ↓ writes prompts/<role>.md with sandbox paths filled in
+  ↓ writes manifest.json with SHAs of every file + git HEAD + protocol versions
+  ↓ prints the sandbox path on the last line of stdout
 
-Each reviewer does **not** see:
+[orchestrator spawns three Agent subagents in ONE message,
+ passing the sandbox-resident prompts/<role>.md content as the prompt]
 
-- The author's conversation transcript.
-- The author's framing of expected outcome.
-- Other reviewers' in-progress reports (they may run in parallel and must not coordinate).
+[reviewers write reports to <sandbox>/_reports/<role>.md]
 
-Spawn all three reviewers in a **single message with three parallel `Agent` tool calls**. They run concurrently and write into `audits/<slug>/reviews/`.
+scripts/finalize-review.sh <sandbox-path> <audit-slug> [round-number]
+  ↓ validates all three reports exist and are non-trivial
+  ↓ copies reports to audits/<slug>/reviews/round<N>/<role>.md
+  ↓ copies manifest to audits/<slug>/reviews/round<N>/_sandbox_manifest.json
+  ↓ deletes the sandbox
+```
+
+**What the reviewer sees** (sandbox contents):
+
+| File | Source | Notes |
+|---|---|---|
+| `CLAUDE.md`, `AGENTS.md` | live repo (verbatim) | the protocol the reviewer operates under |
+| `audits_README.md`, `papers_README.md`, `claims_README.md` | live repo | structural docs |
+| `audit_premises_README.md` | stripped from `audits/<slug>/README.md` | verdict, prior reviews, caveats, changelog removed; paper-note links replaced with raw bibliographic identifiers |
+| `audit_script.py` | `audits/<slug>/audit.py` verbatim | the code |
+| `audit_raw_output.txt` | fresh stdout captured at sandbox time | ground-truth for reproducibility |
+| `claim_statement_only.md` | stripped from claim file | status, confidence, evidence ledger, changelog removed |
+| `prompts/<role>.md` | generated per role | the reviewer's brief |
+
+**What the reviewer cannot see** (because it is not on disk in the sandbox):
+
+- The audit's verdict line or any conclusion-bearing section.
+- The audit's "Issues surfaced by peer review" history.
+- Prior `reviews/` directories from this or any other audit.
+- The claim file's `status:`, `confidence:`, or evidence ledger.
+- The `examples/` walkthrough.
+- Other audits or paper notes.
+- The git history.
+- The orchestrator's conversation.
+
+**Manifest.** `manifest.json` records the SHA-256 of every file in the sandbox, the git HEAD at sandbox creation, the SHAs of `CLAUDE.md` and `AGENTS.md` (so a future reader knows which protocol version the reviewer was operating under), the SHAs of each per-role prompt, and the list of stripped sections / frontmatter fields. This file is committed alongside the reports in `audits/<slug>/reviews/round<N>/_sandbox_manifest.json` — it is the forensic record proving exactly what the reviewer had access to.
+
+**Orchestration.** Spawn all three reviewers in a **single message with three parallel `Agent` tool calls**, passing each subagent the contents of `<sandbox>/prompts/<role>.md` as its prompt. The prompts themselves point at the sandbox path, not the live repo, so the reviewers naturally work inside the isolated directory.
 
 **The three roles.**
 
 | Role | What they check | Why |
 |---|---|---|
-| **Devil's advocate** | The strongest defense of the claim the audit refuted (or strongest attack on a claim it supported); audit assumptions that could be challenged; missing literature; prose more confident than math. | The only path to independent disagreement when the author's prior is baked into the audit. |
-| **Source fidelity** | Whether each cited paper/textbook actually says what the audit and paper-notes say it says. Tier assignments. Overreaching paraphrases. | Catches the failure mode where the audit does to its sources what Casimir Inc. did to White's PRR paper. |
-| **Reproducibility** | Re-runs `audit.py` from clean. Cross-checks every load-bearing number in the README against the script. Re-derives at least one central equation. Convergence, units, conventions. | Catches mechanical and numerical errors invisible to a reader. |
+| **Devil's advocate** | The strongest defense of the position the audit's methodology pushes against; assumptions that could be challenged; missing literature; prose more confident than math. The reviewer is asked to form an independent verdict BEFORE steelmanning. | The only path to independent disagreement when the author's prior is baked into the audit. |
+| **Source fidelity** | Whether each cited paper/textbook actually says what the audit claims. The reviewer fetches each original source — paper-note summaries are intentionally not in the sandbox. | Catches the failure mode where the audit does to its sources what Casimir Inc. did to White's PRR paper. |
+| **Reproducibility** | Re-runs `audit.py` (or trusts `audit_raw_output.txt`). Cross-checks every load-bearing number against the output. Re-derives at least one central equation. Convergence, units, conventions. | Catches mechanical and numerical errors invisible to a reader. |
 
-**Reviewer prompt templates** (substitute `{{AUDIT_SLUG}}` per call). Each subagent should be invoked with `subagent_type: "general-purpose"` and `model: "opus"`.
-
-#### Devil's advocate
-
-```
-You are a peer reviewer of an audit in the physicsOS computational-physics
-workspace at /Users/joaomontenegro/Development/physicsOS (or wherever this
-repo is checked out). Your role is to argue AGAINST the audit's conclusion.
-
-Read fully, in order:
-  - CLAUDE.md
-  - AGENTS.md (especially §1.3 source tiers, §2 audit protocol, §3.3 confidence)
-  - audits/{{AUDIT_SLUG}}/README.md
-  - audits/{{AUDIT_SLUG}}/audit.py
-  - the claim file linked from the audit's frontmatter
-  - every paper note in papers/ that the audit cites
-
-Your task:
-  1. Pretend the audit's verdict is wrong. Find the strongest defense of the
-     position the audit opposes. Steelman it as if you were paid to.
-  2. Identify every assumption the audit makes that could be challenged:
-     idealizations, boundary conditions, parameter ranges, neglected effects.
-  3. Find rhetorical overreach — passages where the prose is more confident
-     than the math actually supports.
-  4. Flag paraphrases of cited sources that overreach what the source proves.
-  5. Identify any post-publication literature the audit may have missed.
-
-Write your review to audits/{{AUDIT_SLUG}}/reviews/devil_advocate.md with:
-  ## Strongest defense of the position the audit opposes
-  ## Audit assumptions worth challenging
-  ## Overreach: prose vs math
-  ## Citation-fidelity concerns
-  ## Missing literature
-  ## Verdict (one of: substantive issues / minor issues / agree despite trying not to)
-
-Be specific. Cite line numbers in audit.py. Quote audit-README passages you
-challenge. Cite paper-note paths.
-
-You are NOT here to validate the audit. If after honest effort you still
-agree with it, say so explicitly — that is itself a meaningful result.
-DO NOT read or coordinate with other reviewers' files (devil_advocate.md is
-your own output; do not read source_fidelity.md or reproducibility.md if they
-appear).
-```
-
-#### Source fidelity
-
-```
-You are a peer reviewer of an audit in the physicsOS computational-physics
-workspace. Your role is to verify that every source the audit cites actually
-says what the audit (and the corresponding paper-notes) claim it says.
-
-Read first:
-  - CLAUDE.md, AGENTS.md (especially §1 on research and source tiers)
-  - audits/{{AUDIT_SLUG}}/README.md
-  - every paper note in papers/ that the audit cites
-
-For each cited source:
-  1. Attempt to fetch the actual source. arXiv goes through
-     scripts/fetch_arxiv.sh (never raw curl — see AGENTS.md §8.1).
-     Journal PDFs via WebFetch when accessible. NIST/CODATA for constants.
-  2. Compare what the paper-note says the source establishes against what
-     the source actually establishes.
-  3. Flag:
-     - Paraphrase that overreaches the source's actual claim.
-     - A cited equation that doesn't appear in the source, or differs.
-     - Tier assignments (§1.3) that look too high.
-     - Missing caveats the source includes but the note omits.
-     - Wrong direction of inference (source proves A, note claims B).
-
-Write your review to audits/{{AUDIT_SLUG}}/reviews/source_fidelity.md with:
-  ## Sources checked (path; accessible Y/N; method of verification)
-  ## Fidelity issues found (one entry per source with the problem)
-  ## Tier assignments to revisit
-  ## Verdict (one of: all sources accurately represented / minor mismatches /
-              substantive misrepresentation)
-
-If a source is paywalled or inaccessible, document the gap — do not guess.
-When you flag an issue, quote both the audit/note's claim and the source's
-actual statement.
-
-DO NOT read or coordinate with other reviewers' files.
-```
-
-#### Reproducibility
-
-```
-You are a peer reviewer of an audit in the physicsOS computational-physics
-workspace. Your role is to verify the audit's numbers and code reproduce,
-and that load-bearing equations are correct.
-
-Read first:
-  - CLAUDE.md, AGENTS.md (especially §2 audit protocol and §2.4 reproducibility)
-  - audits/{{AUDIT_SLUG}}/README.md
-  - audits/{{AUDIT_SLUG}}/audit.py
-
-Your task:
-  1. Run the audit from clean using the project venv:
-        .venv/bin/python audits/{{AUDIT_SLUG}}/audit.py
-     Capture the full output.
-  2. Cross-check every load-bearing number in the README against the script's
-     output. The README's table values, drain times, ratios — every one.
-     List any mismatches with both values quoted.
-  3. Re-derive at least one central equation in the audit from first
-     principles. SymPy is fine. Confirm the result matches what the audit
-     uses.
-  4. If the audit has a convergence study or sensitivity sweep, run it and
-     confirm convergence/stability is actually demonstrated.
-  5. Check dimensional analysis: walk through one full chain (formula →
-     units → claimed result) and confirm consistency. Flag any unit error.
-  6. Check the conventions header at the top of the audit README matches the
-     conventions used in audit.py (SI vs Gaussian; metric signature where
-     relevant; Fourier sign).
-
-Write your review to audits/{{AUDIT_SLUG}}/reviews/reproducibility.md with:
-  ## Re-run output (key numbers extracted, with line references)
-  ## README/script number-matching results
-  ## Equation re-derivation (which equation; method; result; agreement)
-  ## Convergence / dimensional / convention checks
-  ## Verdict (one of: fully reproduces / numerical discrepancies / equation errors)
-
-Quote line numbers in audit.py. If a number disagrees, give both values
-explicitly with their sources.
-
-DO NOT read or coordinate with other reviewers' files.
-```
+**Prompt templates** live in `scripts/_build_review_manifest.py` as `DEVIL_ADVOCATE`, `SOURCE_FIDELITY`, `REPRODUCIBILITY` constants. Each is generated per-sandbox with the sandbox path substituted, so each subagent's prompt points at its own isolated workspace. Use `subagent_type: "general-purpose"` and `model: "opus"` for all three.
 
 **Closing the loop.** After all three reviews land:
 
@@ -265,7 +182,11 @@ DO NOT read or coordinate with other reviewers' files.
     reproducibility: <verdict>
   ```
 - If any review surfaced an issue that changes the audit's verdict, propagate the change to the linked claim file's evidence ledger and recompute confidence per §3.3.
-- The `reviews/` directory and its contents are committed alongside the audit. The reviews are part of the artifact.
+- The `reviews/round<N>/` directory (reports + `_sandbox_manifest.json`) is committed alongside the audit. The reviews and the manifest together are the forensic record: a future reader can verify exactly which files the reviewer had access to and which protocol version they operated under.
+
+**Re-review.** When an audit is materially revised (verdict change, methodology rewrite), re-run peer review as a new round (`round2/`, `round3/`, …). The original round's reports stay in place; the new round produces a new manifest. Comparing `round1/_sandbox_manifest.json` to `round2/_sandbox_manifest.json` tells the reader which protocol-doc SHAs were in effect at each round and what changed.
+
+**Historical reviews.** Reviews from before the sandboxed protocol existed live in `audits/<slug>/reviews/round0/` with a `_NOTE.md` explaining that they were run with full repo access (no isolation) and therefore inherited the live audit's verdict and any prior reviews as ambient context. They are kept for historical traceability; current verdicts should rely on round≥1.
 
 ---
 
