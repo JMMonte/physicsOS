@@ -83,7 +83,7 @@ The veto is what does the load-bearing work. Audit 1's findings are categorical 
 
 ## Step 6 — Peer review
 
-Both audits were then put through cross-context subagent peer review per [AGENTS.md §2.6](../AGENTS.md#26-peer-review). For each audit, three fresh-context subagents — a devil's advocate, a source-fidelity reviewer, and a reproducibility reviewer — were spawned in parallel with no access to the author's reasoning. Their reports live under each audit's `reviews/` directory.
+Both audits were then put through cross-context subagent peer review per [AGENTS.md §2.6](../AGENTS.md#26-peer-review). For each audit, three fresh-context subagents — a devil's advocate, a source-fidelity reviewer, and a reproducibility reviewer — were spawned in parallel with no access to the author's reasoning. Their reports live under each audit's `round<N>/` directories.
 
 The pass produced real disagreement, not rubber-stamping:
 

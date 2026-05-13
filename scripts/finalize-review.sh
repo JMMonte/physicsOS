@@ -17,7 +17,7 @@ ROUND="${3:-1}"
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 AUDIT_DIR="$ROOT/audits/$SLUG"
-ROUND_DIR="$AUDIT_DIR/reviews/round${ROUND}"
+ROUND_DIR="$AUDIT_DIR/round${ROUND}"
 
 if [ ! -d "$SANDBOX" ]; then
   echo "error: sandbox not found: $SANDBOX" >&2

@@ -127,8 +127,8 @@ scripts/prepare-review.sh <audit-slug> [round-number]   # build sandbox
 
 scripts/finalize-review.sh <sandbox-path> <audit-slug> [round-number]
   ↓ validates all three reports exist and are non-trivial
-  ↓ copies reports to audits/<slug>/reviews/round<N>/<role>.md
-  ↓ copies manifest to audits/<slug>/reviews/round<N>/_sandbox_manifest.json
+  ↓ copies reports to audits/<slug>/round<N>/<role>.md
+  ↓ copies manifest to audits/<slug>/round<N>/_sandbox_manifest.json
   ↓ deletes the sandbox
 ```
 
@@ -148,14 +148,14 @@ scripts/finalize-review.sh <sandbox-path> <audit-slug> [round-number]
 
 - The audit's verdict line or any conclusion-bearing section.
 - The audit's "Issues surfaced by peer review" history.
-- Prior `reviews/` directories from this or any other audit.
+- Prior `round<N>/` directories from this or any other audit.
 - The claim file's `status:`, `confidence:`, or evidence ledger.
 - The `examples/` walkthrough.
 - Other audits or paper notes.
 - The git history.
 - The orchestrator's conversation.
 
-**Manifest.** `manifest.json` records the SHA-256 of every file in the sandbox, the git HEAD at sandbox creation, the SHAs of `CLAUDE.md` and `AGENTS.md` (so a future reader knows which protocol version the reviewer was operating under), the SHAs of each per-role prompt, and the list of stripped sections / frontmatter fields. This file is committed alongside the reports in `audits/<slug>/reviews/round<N>/_sandbox_manifest.json` — it is the forensic record proving exactly what the reviewer had access to.
+**Manifest.** `manifest.json` records the SHA-256 of every file in the sandbox, the git HEAD at sandbox creation, the SHAs of `CLAUDE.md` and `AGENTS.md` (so a future reader knows which protocol version the reviewer was operating under), the SHAs of each per-role prompt, and the list of stripped sections / frontmatter fields. This file is committed alongside the reports in `audits/<slug>/round<N>/_sandbox_manifest.json` — it is the forensic record proving exactly what the reviewer had access to.
 
 **Orchestration.** Spawn all three reviewers in a **single message with three parallel `Agent` tool calls**, passing each subagent the contents of `<sandbox>/prompts/<role>.md` as its prompt. The prompts themselves point at the sandbox path, not the live repo, so the reviewers naturally work inside the isolated directory.
 
@@ -182,11 +182,11 @@ scripts/finalize-review.sh <sandbox-path> <audit-slug> [round-number]
     reproducibility: <verdict>
   ```
 - If any review surfaced an issue that changes the audit's verdict, propagate the change to the linked claim file's evidence ledger and recompute confidence per §3.3.
-- The `reviews/round<N>/` directory (reports + `_sandbox_manifest.json`) is committed alongside the audit. The reviews and the manifest together are the forensic record: a future reader can verify exactly which files the reviewer had access to and which protocol version they operated under.
+- The `round<N>/` directory under the audit (reports + `_sandbox_manifest.json`) is committed alongside the audit. The reviews and the manifest together are the forensic record: a future reader can verify exactly which files the reviewer had access to and which protocol version they operated under.
 
 **Re-review.** When an audit is materially revised (verdict change, methodology rewrite), re-run peer review as a new round (`round2/`, `round3/`, …). The original round's reports stay in place; the new round produces a new manifest. Comparing `round1/_sandbox_manifest.json` to `round2/_sandbox_manifest.json` tells the reader which protocol-doc SHAs were in effect at each round and what changed.
 
-**Historical reviews.** Reviews from before the sandboxed protocol existed live in `audits/<slug>/reviews/round0/` with a `_NOTE.md` explaining that they were run with full repo access (no isolation) and therefore inherited the live audit's verdict and any prior reviews as ambient context. They are kept for historical traceability; current verdicts should rely on round≥1.
+**Historical reviews.** Reviews from before the sandboxed protocol existed live in `audits/<slug>/round0/` with a `_NOTE.md` explaining that they were run with full repo access (no isolation) and therefore inherited the live audit's verdict and any prior reviews as ambient context. They are kept for historical traceability; current verdicts should rely on round≥1.
 
 ---
 
