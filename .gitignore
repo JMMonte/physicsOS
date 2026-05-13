@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Outputs that may be large or regenerable
+audits/**/outputs/*.png
+audits/**/outputs/*.pdf
+audits/**/outputs/*.npy
+audits/**/outputs/*.npz
+audits/**/data/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Local settings (per-user permissions, not shared)
+.claude/settings.local.json

@@ -1,0 +1,32 @@
+{
+  "_comment": "Suggested permissions for physicsOS. Review, then either rename this file to settings.json (shared, committed) or merge into .claude/settings.local.json (per-user, gitignored). The allowlist below pre-approves the read-only/scaffolding commands the agent runs constantly so you get fewer permission prompts.",
+
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(pip show:*)",
+      "Bash(pip freeze:*)",
+      "Bash(jupyter:*)",
+      "Bash(pytest:*)",
+      "Bash(curl -fsSL https://arxiv.org/*)",
+      "Bash(curl -fsSL http://export.arxiv.org/*)",
+      "Bash(curl -fsSL https://export.arxiv.org/*)",
+      "Bash(curl -fsSL https://doi.org/*)",
+      "Bash(curl -fsSL https://api.crossref.org/*)",
+      "Bash(curl -fsSL https://inspirehep.net/api/*)",
+      "Bash(scripts/new_paper.sh:*)",
+      "Bash(scripts/new_audit.sh:*)",
+      "Bash(scripts/new_claim.sh:*)",
+      "Bash(scripts/fetch_arxiv.sh:*)",
+      "Bash(ls:*)",
+      "Bash(tree:*)",
+      "Bash(find:*)",
+      "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ]
+  }
+}
