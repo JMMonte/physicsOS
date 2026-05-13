@@ -9,8 +9,6 @@ created: 2026-05-13
 
 # Steelman energy-ledger audit of a Pinto-style Casimir engine
 
-> **Worked example (audit 2 of 2).** This audit steelmans the only theoretical loophole in Casimir Inc.'s "Quantum Energy Chip" claim and computes the quantitative ledger. The [first audit](../2026-05-13-casimir-energy-budget/) covers the categorical obstructions. The full story is narrated in the [example walkthrough](../../examples/casimir-quantum-energy-chip.md).
-
 ## Claim under audit
 
 The prior audit ([../2026-05-13-casimir-energy-budget/](../2026-05-13-casimir-energy-budget/))

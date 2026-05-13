@@ -11,8 +11,6 @@ superseded_by: none
 
 # Casimir Inc.'s "MicroSparc" chip delivers 1.5 W/m² continuously by harvesting quantum-vacuum energy
 
-> **Worked example.** This claim is the subject of the [Casimir example walkthrough](../examples/casimir-quantum-energy-chip.md). If you're new to physicsOS, read the walkthrough first — it explains how this file, the [two audits](../audits/), and the [six paper notes](../papers/) fit together. The [repo README](../README.md) indexes all examples.
-
 ## Precise statement
 
 The claim being tracked is, as stated in Casimir Inc.'s 2026-05-12 press release:
