@@ -1,0 +1,97 @@
+{
+  "audit_slug": "2026-05-13-casimir-energy-budget",
+  "review_round": 1,
+  "created_at_utc": "20260513T202451Z",
+  "sandbox_path": "/var/folders/2n/vkp6r8fd1219c1yr9rzbyvmm0000gn/T/physicsos-review-2026-05-13-casimir-energy-budget-r1-20260513T202451Z",
+  "git_head_at_creation": "871646263b28e9dfd987638d16ecf8a519096c9f",
+  "protocol_versions": {
+    "CLAUDE.md_sha256": "4da9306a5934adee58523107fc5d9da3371fad29319611e11c968551df286995",
+    "AGENTS.md_sha256": "bfc5087bcf5fd616fbb12582d2caa4b450667826ddcaf17464f082a2c01ed4fd"
+  },
+  "audit_artifacts": {
+    "audit_script.py_sha256": "7305d9c71421f86a5f00411b7b9bb8e0973a4939ec889cb29c1232382d5591cd",
+    "audit_premises_README.md_sha256": "17544749f2ab6ef66d15a8581b8311f7f6052987aa7744d514680330708f1279",
+    "audit_raw_output.txt_sha256": "37e4df469afc3da1b96aa64e7f124b7f9967311fa7ca9cdd33f82e417bab2e6a"
+  },
+  "stripping": {
+    "stripped_frontmatter_fields": [
+      "verdict",
+      "peer_reviewed",
+      "reviewer_verdicts"
+    ],
+    "stripped_sections": [
+      "Result",
+      "Verdict",
+      "Caveats and unresolved",
+      "How the company can rebut",
+      "Changelog"
+    ]
+  },
+  "prompts": {
+    "devil_advocate_sha256": "5dd2419c31778ecbefad308ef97853d10810863c8e76c6290512bbabae545bff",
+    "source_fidelity_sha256": "ac75d6e0a4f68dc169eb159b6a432a967c1b5e4ce963afc09b386340910dc8cc",
+    "reproducibility_sha256": "24b6881a4588ba0a0bbc0c5f5a1ed258ac5d636413a3e7a596adae9955222709"
+  },
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "bfc5087bcf5fd616fbb12582d2caa4b450667826ddcaf17464f082a2c01ed4fd",
+      "size_bytes": 18873
+    },
+    {
+      "path": "CLAUDE.md",
+      "sha256": "4da9306a5934adee58523107fc5d9da3371fad29319611e11c968551df286995",
+      "size_bytes": 4555
+    },
+    {
+      "path": "audit_premises_README.md",
+      "sha256": "17544749f2ab6ef66d15a8581b8311f7f6052987aa7744d514680330708f1279",
+      "size_bytes": 10119
+    },
+    {
+      "path": "audit_raw_output.txt",
+      "sha256": "37e4df469afc3da1b96aa64e7f124b7f9967311fa7ca9cdd33f82e417bab2e6a",
+      "size_bytes": 2618
+    },
+    {
+      "path": "audit_script.py",
+      "sha256": "7305d9c71421f86a5f00411b7b9bb8e0973a4939ec889cb29c1232382d5591cd",
+      "size_bytes": 8343
+    },
+    {
+      "path": "audits_README.md",
+      "sha256": "da56959c0eeaf3a75f4286565c3d85a795a216aa2fa8ed3405a132fe77a3e5a8",
+      "size_bytes": 2421
+    },
+    {
+      "path": "claim_statement_only.md",
+      "sha256": "c3f9eef02c482ccaf362c3a4e3f45d89bfe0cc3a5dcf4ce5654be904d4a73458",
+      "size_bytes": 1323
+    },
+    {
+      "path": "claims_README.md",
+      "sha256": "c42f598fecf8964dd061d0c06f888f9a99b49a183717b8c87143613b9df6d2ff",
+      "size_bytes": 1772
+    },
+    {
+      "path": "papers_README.md",
+      "sha256": "e1a1ac55512e96da8fd50e0d7d2dcebae8dab972b872bd2ca56b65527fc4cdc2",
+      "size_bytes": 1116
+    },
+    {
+      "path": "prompts/devil_advocate.md",
+      "sha256": "5dd2419c31778ecbefad308ef97853d10810863c8e76c6290512bbabae545bff",
+      "size_bytes": 2982
+    },
+    {
+      "path": "prompts/reproducibility.md",
+      "sha256": "24b6881a4588ba0a0bbc0c5f5a1ed258ac5d636413a3e7a596adae9955222709",
+      "size_bytes": 2606
+    },
+    {
+      "path": "prompts/source_fidelity.md",
+      "sha256": "ac75d6e0a4f68dc169eb159b6a432a967c1b5e4ce963afc09b386340910dc8cc",
+      "size_bytes": 2607
+    }
+  ]
+}

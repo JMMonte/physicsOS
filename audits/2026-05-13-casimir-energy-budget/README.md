@@ -6,10 +6,13 @@ verdict: contradicted
 audit_layers: [dimensional, limits, order-of-magnitude, symbolic, numerical, data-comparison]
 created: 2026-05-13
 peer_reviewed: 2026-05-13
+peer_reviewed_rounds:
+  round0: 2026-05-13 (pre-sandbox; see reviews/round0/_NOTE.md)
+  round1: 2026-05-13 (sandboxed per AGENTS.md §2.6)
 reviewer_verdicts:
-  devil_advocate: substantive issues
-  source_fidelity: minor mismatches
-  reproducibility: fully reproduces
+  devil_advocate: minor issues       # round1; round0 was 'substantive issues' on a pre-revision audit
+  source_fidelity: all sources accurately represented   # round1; round0 was 'minor mismatches' (caught Wilson missing paper note — invisible to a sandboxed reviewer by design)
+  reproducibility: fully reproduces  # consistent across rounds
 ---
 
 # Casimir energy-budget audit of the Casimir Inc. "MicroSparc" chip
@@ -140,4 +143,5 @@ The PRR 2026 paper is, on its own, not a rebuttal. It is an analytic curiosity i
 ## Changelog
 
 - 2026-05-13: audit created. Verdict: contradicted.
-- 2026-05-13: peer-reviewed by three subagents (devil's advocate, source fidelity, reproducibility) per AGENTS.md §2.6. Reviews in [`reviews/`](reviews/). §1, §3, §4, and the "Result" summary revised to address devil's-advocate and source-fidelity findings; Wilson 2011 paper note added; proton-radius prose direction corrected. Verdict unchanged.
+- 2026-05-13: peer-reviewed by three subagents (devil's advocate, source fidelity, reproducibility) per AGENTS.md §2.6. Reviews in [`reviews/round0/`](reviews/round0/). §1, §3, §4, and the "Result" summary revised to address devil's-advocate and source-fidelity findings; Wilson 2011 paper note added; proton-radius prose direction corrected. Verdict unchanged.
+- 2026-05-13: round1 peer review — first run under the sandboxed protocol (AGENTS.md §2.6 rewritten this session). The three reviewers were spawned against a curated `/tmp/` sandbox with the audit's verdict, prior reviews, claim status/confidence, and examples walkthrough programmatically stripped. Reports in [`reviews/round1/`](reviews/round1/) alongside `_sandbox_manifest.json` (SHA-256s of every file the reviewer had access to, plus protocol-doc SHAs and git HEAD at sandbox creation). Reviewer verdicts: `devil_advocate: minor issues` (round0 was `substantive issues`); `source_fidelity: all sources accurately represented` (round0 was `minor mismatches`); `reproducibility: fully reproduces` (consistent across rounds). The shift in devil-advocate severity reflects two effects: (a) the audit was already revised between rounds in response to round0's findings, so round1 was reviewing a tighter document; (b) the sandbox removed prior-review context, so round1 could not see what had already been resolved. The shift in source-fidelity severity is structural: round0 caught "Wilson 2011 has no paper-note" (an AGENTS.md §1.4 hygiene violation) by reading the paper notes directory; round1 had no paper notes to check, so that class of finding is invisible to it by design. Round1 caught additional details round0 missed (most notably a minor Wilson-band frequency annotation, and rhetorical overreach in the Jaffe paraphrase) — different lenses, different findings, both substantive. Verdict and claim confidence unchanged.
