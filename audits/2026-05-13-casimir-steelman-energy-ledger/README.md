@@ -9,6 +9,8 @@ created: 2026-05-13
 
 # Steelman energy-ledger audit of a Pinto-style Casimir engine
 
+> **Worked example (audit 2 of 2).** This is the second-pass audit in the physicsOS worked example. The [first audit](../2026-05-13-casimir-energy-budget/) covers the categorical obstructions; this one steelmans the only theoretical loophole and computes the quantitative ledger. See [`../../README.md`](../../README.md) for the framing.
+
 ## Claim under audit
 
 The prior audit ([../2026-05-13-casimir-energy-budget/](../2026-05-13-casimir-energy-budget/))

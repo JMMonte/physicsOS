@@ -9,6 +9,8 @@ created: 2026-05-13
 
 # Casimir energy-budget audit of the Casimir Inc. "MicroSparc" chip
 
+> **Worked example (audit 1 of 2).** This is the first-pass audit in the physicsOS worked example. It establishes the categorical obstructions to the claim. See [`../../README.md`](../../README.md) for the framing and the [companion steelman audit](../2026-05-13-casimir-steelman-energy-ledger/) for the second pass.
+
 ## Claim under audit
 
 > The "MicroSparc" chip (5 mm × 5 mm) produces **1.5 V at 25 μA continuously**

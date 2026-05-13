@@ -11,6 +11,8 @@ superseded_by: none
 
 # Casimir Inc.'s "MicroSparc" chip delivers 1.5 W/m² continuously by harvesting quantum-vacuum energy
 
+> **Worked example.** This is the canonical demonstration of the physicsOS protocol — a real claim from a real press release, audited end-to-end. If you're new to the repo, read [`../README.md`](../README.md) first; that page links to this claim and the two audits underneath it as the worked example.
+
 ## Precise statement
 
 The claim being tracked is, as stated in Casimir Inc.'s 2026-05-12 press release:
