@@ -98,10 +98,12 @@ print()
 T_target_s = 10 * 365.25 * 24 * 3600
 E_needed = P_AREAL * T_target_s
 d_needed = ((np.pi**2) * C.hbar * C.c / (720.0 * E_needed)) ** (1/3)
+PROTON_RADIUS = 0.84e-15  # m, charge radius
 print("== HYPOTHETICAL: gap for 10-year reservoir drain at the claim ==")
 print(f"  required reservoir: {E_needed:.3e} J/m²")
 print(f"  required gap d:     {d_needed:.3e} m  ({d_needed*1e15:.3e} fm)")
-print(f"  proton radius:     ~0.84e-15 m  for scale.")
+print(f"  proton radius:      {PROTON_RADIUS:.3e} m  (gap is {d_needed/PROTON_RADIUS:.1e}× proton radius)")
+print(f"  Bohr radius:       ~5.29e-11 m  (gap is {d_needed/5.29e-11:.1e}× Bohr radius — i.e., subatomic)")
 print()
 
 
