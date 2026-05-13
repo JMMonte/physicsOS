@@ -5,6 +5,11 @@ conventions: SI; parallel-plate idealization with perfect-conductor reservoir at
 verdict: contradicted
 audit_layers: [dimensional, limits, order-of-magnitude, symbolic, numerical, data-comparison]
 created: 2026-05-13
+peer_reviewed: 2026-05-13
+reviewer_verdicts:
+  devil_advocate: substantive issues
+  source_fidelity: minor mismatches
+  reproducibility: numerical discrepancies (dimensional bug; fixed)
 ---
 
 # Steelman energy-ledger audit of a Pinto-style Casimir engine
@@ -111,9 +116,11 @@ breakdown field of air and 2×10⁴× the breakdown field of bulk InSb). With
 50% perfect-recovery oscillator efficiency:
 
 $$
-P_{\text{drive,Drude}} = \frac{1}{2}\cdot 2 f_{\text{mod}}\cdot \frac{\sigma^2}{2\varepsilon_0\varepsilon_r}
-\approx 3 \times 10^{19}~\text{W/m}^2.
+P_{\text{drive,Drude}} = \frac{1}{2}\cdot 2 f_{\text{mod}}\cdot \frac{\sigma^2\, h_{\text{mod}}}{2\varepsilon_0\varepsilon_r}
+\approx 1.6 \times 10^{12}~\text{W/m}^2.
 $$
+
+(The areal energy stored in the modulator capacitor is the volumetric density $\sigma^2/(2\varepsilon_0\varepsilon_r)$ times the modulator thickness $h_{\text{mod}}$. A reproducibility peer review caught the missing $h_{\text{mod}}$ factor in the original numerical value; the corrected figure is two orders of magnitude smaller but does not change the verdict because the Drude floor is not the operative minimum — see below.)
 
 (B) **Dielectric-loss floor.** At the field that produces the carrier
 swing, the in-modulator dissipation is
@@ -134,24 +141,23 @@ P_{\text{drive,VO}_2} = 2 f_{\text{mod}} \cdot \rho \Delta H \cdot h_{\text{mod}
 \approx 2 \times 10^{10}~\text{W/m}^2.
 $$
 
-These three floors are **independent obstructions** — a real device pays
-**all three**, so the operative drive cost is max(A, B, C), not min.
-For this audit, the most-favorable-to-the-claim assumption is to take
-**min**, which still falls catastrophically short.
+These three floors are **alternative drive-cost mechanisms** (Drude carrier-swing electrostatics, broadband dielectric loss in a real material, latent heat of a VO₂-style phase transition). A device implementing exactly one of these mechanisms pays exactly one of these costs. The most-favorable-to-the-claim choice is therefore $\min(A, B, C)$ — the steelman gets to pick its mechanism.
+
+(An earlier version of this README claimed "a real device pays all three" and used $\max$. The devil's-advocate peer review correctly pointed out that those costs do not stack: the floors enumerate alternative implementations, not simultaneous obligations. The framing is corrected here; the verdict is unchanged because even the most charitable choice still loses by ~7 orders of magnitude.)
 
 ### Headline ledger (charitable: drive = min of three floors)
 
 | quantity | value |
 |---|---|
 | P_extracted | 4.3×10² W/m² |
-| P_drive_min (charitable) | 2×10¹⁰ W/m² (VO₂ floor) |
-| P_net (best case) | **−2×10¹⁰ W/m²** |
+| P_drive(Drude) — *corrected* | 1.6×10¹² W/m² |
+| P_drive(dielectric) | 1.4×10¹¹ W/m² |
+| P_drive(VO₂ latent heat) | 2.0×10¹⁰ W/m² |
+| **P_drive_min (charitable)** | **2.0×10¹⁰ W/m² (VO₂ floor — binding)** |
+| P_net (best case) | **−2.0×10¹⁰ W/m²** |
 | ratio drive / extracted | 4.5×10⁷ |
 
-The drive cost exceeds the extracted Casimir power by a factor of
-**~5 × 10⁷** even taking the *smallest* of three independent loss
-mechanisms. The honest figure — drive = max of three — is worse by another
-~10⁹ (Drude floor dominates).
+Even taking the *smallest* of three independent loss mechanisms — i.e., letting the steelman pick whichever physical implementation has the lowest cost — the drive exceeds the extracted Casimir power by **~5 × 10⁷×**. The VO₂ floor is the binding constraint here; the Drude floor (after the $h_{\text{mod}}$ correction) is two orders of magnitude looser; the dielectric-loss floor is one order looser.
 
 ### Sensitivity sweep
 
@@ -200,6 +206,30 @@ filing (1999).
   is well within the range of such conventional harvesting from a 25 mm²
   device. We audit only whether *Casimir extraction* explains the
   performance.
+### Issues surfaced by peer review (2026-05-13)
+
+This audit was peer-reviewed under [AGENTS.md §2.6](../../AGENTS.md#26-peer-review). Reports in [`reviews/`](reviews/). Findings and resolution:
+
+- **Reproducibility reviewer** (verdict: numerical discrepancies). Caught a dimensional bug in the Drude-floor formula at `audit.py:251` and the parallel sweep at `audit.py:374`: `σ²/(2ε₀ε_r)` is energy per *volume*, not per area, so the areal energy required the missing factor of $h_{\text{mod}}$. Fixed in both places. The corrected Drude floor is **1.6 × 10¹² W/m²** (was 3.2 × 10¹⁹ W/m², off by $1/h_{\text{mod}} \approx 2 \times 10^7$). The audit's verdict is unchanged because the VO₂ latent-heat floor at 2.0 × 10¹⁰ W/m² was already the binding `min` constraint; the Drude floor was never the operative bound. The reviewer also independently re-derived the Casimir energy-per-area formula symbolically and confirmed all other load-bearing numbers.
+
+- **Devil's advocate** (verdict: substantive issues). Made four substantive points:
+
+  1. The audit models *quasi-static* permittivity modulation in real materials (carrier-swing electrostatics, broadband dielectric loss, thermal VO₂). It does **not** explicitly model the **parametric DCE regime** (Wilson et al. 2011, Lähteenmäki et al. 2013), in which the boundary impedance is electronically modulated at multi-GHz rates with the boundary itself stationary. In that regime the figures of merit are modulation depth $\delta\varepsilon/\varepsilon$ and cavity quality factor $Q$, not breakdown fields. *Resolution.* The audit does not refute parametric DCE in principle, but the experimental record does: Wilson 2011 measures DCE photon flux ~$10^5$ s⁻¹ in a 4–6 GHz mode with a SQUID drive dissipating ~µW — i.e., **drive/extracted of order $10^{12}$**, well in excess of the audit's $10^7$ ledger gap. A dedicated parametric-DCE audit would tighten this, but the empirical ratio is already overwhelmingly negative. Logged as a TODO: extend with explicit parametric-DCE model citing Lähteenmäki 2013 directly.
+
+  2. The original text claimed "a real device pays all three floors" (max-of-three for the "honest" figure). The reviewer correctly identified this as wrong: the floors enumerate alternative mechanisms, and a device implementing one mechanism pays that one cost. *Resolution.* Reframed: "min over three alternative mechanisms" is the correct steelman bound. The "honest figure ~10⁹ worse" line was removed because it was an artifact of the wrong framing plus the dimensional bug.
+
+  3. In the sensitivity sweep, $\Delta n$ is held fixed regardless of $\Delta R$. Physically the carrier swing required for a *partial* reflectivity modulation should scale with $\Delta R$, so the sweep's small-$\Delta R$ points understate how easy the partial-modulation case could be. *Resolution.* Acknowledged as a known limitation. The qualitative conclusion survives because both $P_{\text{extracted}}$ and $\sigma$ scale linearly with $\Delta R$ in the linearized Drude regime, so $P_{\text{drive,Drude}}/P_{\text{ext}} \propto \Delta R$; at the smallest $\Delta R = 0.1$ the ratio is 10× worse, not better. A revised sweep with $\Delta R$-coupled $\Delta n$ remains a TODO. The "0/45 net-positive" result is unaffected — the VO₂ floor (the binding constraint at full $\Delta R$) is itself $\Delta R$-independent in the current model.
+
+  4. The "VO₂ latent heat at GHz" floor is on a physically impossible implementation, since thermal phase transitions cannot be cycled at GHz. *Resolution.* The audit body already acknowledged this (`audit.py:211–213`). The VO₂ floor is best read as a *lower-bound thought experiment*: even if we hand the steelman a free, lossless, infinitely-fast thermal modulator, the latent heat itself is unavoidable, and that alone exceeds extracted power by $4 \times 10^7$. A photoinduced (sub-ps) VO₂ modulation would have *additional* drive costs (the pump laser), not fewer.
+
+  5. *Missing literature.* Galiffi et al. 2022 (photonic time-crystals review), Lyubarov et al. 2022 *Science* (vacuum amplification in time-modulated media), the Sloan–Soljačić Casimir-time-crystal series. The audit is steelmanning ~2003-era state of the art; modern photonic-time-crystal work expands the parameter space. *Resolution.* Logged as a follow-up audit TODO. Initial reading suggests the same drive-cost-vs-extracted question applies (these systems require external pumps), but a proper survey is needed before claiming so.
+
+- **Source-fidelity reviewer** (verdict: minor mismatches). Verified Moddel & Dmitriyeva 2019 (the load-bearing peer-reviewed citation) verbatim against the arXiv preprint — both quoted passages match. Flagged that some material parameters in `audit.py` are not directly sourced (InSb $\tan\delta$ value not in the cited Yaqoob paper; InSb / air breakdown fields uncited). Also flagged that Iannuzzi 2003 and Chen 2007, cited in `audit.py` comments, have no paper notes. *Resolution.* Acknowledged as citation-discipline gaps. The verdict survives factor-of-10 variations in any single material parameter because the ledger fails by ≥10⁷. Adding the missing paper notes and tightening material citations is a follow-up audit task.
+
+The peer-review pass tightened one numerical figure, removed one wrong framing claim, and identified two genuine scope gaps (parametric DCE, photonic time crystals). The audit's verdict (`contradicted`) and the linked claim's status (`refuted`, confidence 0.10) are unchanged.
+
+---
+
 - The Drude floor (A) is sensitive to choice of m_eff and to whether the
   modulator needs to swing through full metallic threshold or some smaller
   contrast. Even an order-of-magnitude relaxation (e.g. ΔR = 0.1 instead of
@@ -249,3 +279,4 @@ why it cannot be cover for the device claim.
 ## Changelog
 
 - 2026-05-13: audit created. Verdict: contradicted.
+- 2026-05-13: peer-reviewed by three subagents per AGENTS.md §2.6. Reviews in [`reviews/`](reviews/). A dimensional bug in the Drude floor (`audit.py:251` and `:374`, missing $h_{\text{mod}}$ factor) was caught by the reproducibility reviewer and fixed; corrected Drude figure dropped from 3.2 × 10¹⁹ W/m² to 1.6 × 10¹² W/m². The "all three floors must be paid" framing was identified as wrong by the devil's advocate and reframed as "alternative mechanisms; min is the steelman bound." Two scope gaps logged for follow-up: the parametric DCE regime (Wilson 2011 / Lähteenmäki 2013) is not explicitly modeled, and photonic-time-crystal work (Galiffi 2022, Lyubarov 2022) is not surveyed. Headline verdict (`contradicted`) and headline drive/extracted ratio (4.5 × 10⁷) are unchanged because the VO₂ latent-heat floor remains the binding `min` constraint.

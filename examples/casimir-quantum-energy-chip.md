@@ -81,6 +81,26 @@ audit 1 carries veto-R (categorical: 2nd law + v<c)
 
 The veto is what does the load-bearing work. Audit 1's findings are categorical — not "the numbers don't match" but "this configuration is forbidden in principle." The rubric is designed so a single such finding caps confidence regardless of how many neutral citations exist elsewhere. Audit 2's 10-orders-of-magnitude ledger failure does *not* add a second veto (the failure is quantitative, not in-principle), but it pushes `s_base` down anyway and would refute the claim by itself even if no veto had been triggered.
 
+## Step 6 — Peer review
+
+Both audits were then put through cross-context subagent peer review per [AGENTS.md §2.6](../AGENTS.md#26-peer-review). For each audit, three fresh-context subagents — a devil's advocate, a source-fidelity reviewer, and a reproducibility reviewer — were spawned in parallel with no access to the author's reasoning. Their reports live under each audit's `reviews/` directory.
+
+The pass produced real disagreement, not rubber-stamping:
+
+- **Audit 1 review** (verdicts: substantive issues / minor mismatches / fully reproduces). The devil's advocate caught that §3's DCE argument misapplied the slow-mirror $(v/c)^2$ scaling to the parametric DCE regime that the audit's own benchmark (Wilson 2011) actually demonstrates, and that §4's second-law claim was conditional on the company's stated passive configuration rather than unconditional. The source-fidelity reviewer caught Wilson 2011 cited without a paper note and the "~10⁵ photons/s" figure presented as a measurement when it is an order-of-magnitude inference. Two reviewers independently caught a prose error in §1 about the proton-radius comparison direction. The audit was revised to address each finding: §3 now distinguishes mechanical from parametric DCE; §4 makes the conditionality explicit; Wilson 2011 has a [paper note](../papers/2011-wilson-dynamical-casimir-effect.md). Verdict unchanged (`contradicted`).
+- **Audit 2 review** (verdicts: substantive issues / minor mismatches / numerical discrepancies). The reproducibility reviewer caught a **dimensional bug** in the Drude-floor formula at `audit.py:251` and `:374`: $\sigma^2 / (2\varepsilon_0\varepsilon_r)$ is energy per *volume*, not per area, so the areal energy required a missing factor of $h_{\text{mod}}$. Fixed; the corrected Drude floor dropped from 3.2 × 10¹⁹ W/m² to 1.6 × 10¹² W/m² — two orders of magnitude lower. The verdict and the headline drive/extracted ratio (4.5 × 10⁷) were unchanged because the VO₂ latent-heat floor at 2.0 × 10¹⁰ W/m² was already the binding constraint, not the Drude floor. The devil's advocate also corrected an "all three floors must be paid" framing to the correct "min over three alternative mechanisms" and flagged the parametric DCE / photonic-time-crystal regimes as un-modeled (TODOs for a follow-up audit).
+
+Across both audits, the peer-review pass:
+
+- caught one real numerical bug that the author missed;
+- corrected one wrong framing claim (max vs min over floors);
+- caught one categorical-misapplication argument (mechanical vs parametric DCE scaling);
+- tightened the conditional structure of one categorical-veto argument (passive single-T equilibrium);
+- surfaced one citation-discipline gap (Wilson 2011 missing paper note);
+- identified two scope gaps for follow-up work.
+
+None of these changed the verdicts. They changed the *quality* of the argument. The result is a worked example where the protocol's auditable-trail-or-it-didn't-happen premise also extends to the audits themselves.
+
 ## What would change the verdict
 
 The audit READMEs both list explicit "how the company can rebut" sections. In summary, Casimir Inc. would need to publish — peer-reviewed, with independent replication — **all of**:
@@ -95,8 +115,9 @@ Until that exists, the claim's confidence stays at 0.10.
 
 - **Speed of refutation.** From "this press release dropped" to a verdict-bearing audit took one focused session, all artifacts logged.
 - **Composability.** A second-pass audit added new evidence without invalidating the first; the rubric handled the combination mechanically.
+- **Peer review caught real flaws.** The cross-context subagent reviews (Step 6) caught a dimensional bug in audit 2's Drude floor, a categorical-misapplication argument in audit 1's DCE section, and a wrong-direction framing claim — all things the author's in-context re-reading missed. The verdicts survived the review; the *arguments behind them* got tighter.
 - **Honest failure modes.** When arXiv rate-limited the fetcher and when the PRR PDF was Cloudflare-gated, those were logged as constraints rather than hidden. The fetcher was hardened (see [AGENTS.md §8.1](../AGENTS.md#81-arxiv)); the PRR content was reconstructed via the 2015 NTRS precursor with the reconstruction process documented in the paper note.
-- **The audit produced reusable infrastructure.** The hardened arXiv fetcher, the pinned scientific Python environment, the formalized confidence rubric — all came out of running this one example to completion.
+- **The audit produced reusable infrastructure.** The hardened arXiv fetcher, the pinned scientific Python environment, the formalized confidence rubric, and the peer-review protocol — all came out of running this one example to completion.
 
 ## Reproducing this example
 

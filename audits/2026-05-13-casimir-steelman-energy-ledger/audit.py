@@ -206,8 +206,12 @@ print("=" * 70)
 #      n ~ 3e21 /cm^3 = 3e27 /m^3. (This is the "metallic" threshold.)
 #      Charging a 50 nm modulator layer to this carrier density requires
 #      surface charge sigma = e * Delta_n * h_mod. The electrostatic energy
-#      cost stored, U = sigma^2 / (2 eps0 eps_r), is the IRREDUCIBLE work
-#      per half-cycle just to put the charge there (and pull it back).
+#      cost stored per chip area is
+#         U/A = sigma^2 * h_mod / (2 eps0 eps_r)        [J/m^2],
+#      i.e. (energy density inside the capacitor) * (modulator thickness).
+#      This is the IRREDUCIBLE work per half-cycle just to put the charge
+#      there (and pull it back). [Dimensional bug fixed 2026-05-13 after
+#      reproducibility peer review caught the missing h_mod factor.]
 #
 #  (ii) "Loss-tangent floor" -- once the carrier density swings, the
 #       resulting AC dissipation in the modulator is
@@ -246,9 +250,11 @@ print(f"Required carrier swing Delta_n        = {Delta_n:.3e} /m^3  "
 sigma_surf = C.e * Delta_n * h_mod          # C/m^2
 print(f"Surface charge needed per cycle   sigma = {sigma_surf:.3e} C/m^2")
 
-# Electrostatic energy stored in the modulator capacitor (per area, per
-# half-cycle, in the linear-dielectric limit). U = sigma^2 / (2 eps0 eps_r).
-U_capacitor_per_area = sigma_surf ** 2 / (2.0 * EPS0 * eps_r_InSb)
+# Electrostatic energy stored in the modulator capacitor (per chip area,
+# per half-cycle, linear-dielectric limit). The energy density inside the
+# capacitor is sigma^2 / (2 eps0 eps_r) [J/m^3]; integrating over the
+# modulator thickness h_mod gives the areal energy [J/m^2].
+U_capacitor_per_area = sigma_surf ** 2 * h_mod / (2.0 * EPS0 * eps_r_InSb)
 print(f"Electrostatic energy stored per cycle per area: "
       f"U = {U_capacitor_per_area:.3e} J/m^2")
 
@@ -371,7 +377,7 @@ for d_nm in [10, 30, 100, 300, 1000]:
             omega_cav_ = np.pi * C_LIGHT / d_
             Delta_n_ = EPS0 * m_eff_InSb * omega_cav_ ** 2 / C.e ** 2
             sigma_ = C.e * Delta_n_ * h_mod
-            U_cap_ = sigma_ ** 2 / (2.0 * EPS0 * eps_r_InSb)
+            U_cap_ = sigma_ ** 2 * h_mod / (2.0 * EPS0 * eps_r_InSb)
             P_drude_ = (1.0 - osc_recovery) * U_cap_ * 2.0 * f_
 
             # Dielectric-loss floor at the field producing that swing
