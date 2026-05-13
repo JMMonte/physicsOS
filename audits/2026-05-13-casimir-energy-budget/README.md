@@ -9,7 +9,7 @@ created: 2026-05-13
 
 # Casimir energy-budget audit of the Casimir Inc. "MicroSparc" chip
 
-> **Worked example (audit 1 of 2).** This is the first-pass audit in the physicsOS worked example. It establishes the categorical obstructions to the claim. See [`../../README.md`](../../README.md) for the framing and the [companion steelman audit](../2026-05-13-casimir-steelman-energy-ledger/) for the second pass.
+> **Worked example (audit 1 of 2).** This audit establishes the categorical obstructions to Casimir Inc.'s "Quantum Energy Chip" claim. The full story — claim file, both audits, paper notes — is narrated in the [example walkthrough](../../examples/casimir-quantum-energy-chip.md). The [companion steelman audit](../2026-05-13-casimir-steelman-energy-ledger/) is the second pass.
 
 ## Claim under audit
 

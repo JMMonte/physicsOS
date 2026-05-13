@@ -60,25 +60,21 @@ Open the resulting templates and fill them in.
 | [`audits/`](audits/) | One directory per computational audit. README + `audit.py` + `outputs/`. Reproducible: clone, bootstrap, run. |
 | [`claims/`](claims/) | One file per tracked physics statement. Has an evidence ledger linking back to papers and audits, plus a confidence score recomputed under a transparent rubric. |
 | [`memory/`](memory/) | Project-local long-term notes (conventions, open threads). Distinct from any per-user agent memory. |
+| [`examples/`](examples/) | Narrative walkthroughs of the protocol applied to real claims. Start here if you're new to the repo. |
 | [`scripts/`](scripts/) | Bootstrap, scaffolding helpers, rate-limit-safe fetchers. |
 | [`requirements.txt`](requirements.txt) | Pinned scientific Python stack (numpy 2, scipy, sympy, matplotlib, pint, astropy 7, mpmath). |
 
 ---
 
-## Worked example: a $12M "Quantum Energy Chip"
+## Examples
 
-On 2026-05-12, the company **Casimir, Inc.** announced a $12M seed round for a 5 mm × 5 mm semiconductor chip ("MicroSparc") claimed to deliver **1.5 V × 25 μA continuously** by "harvesting energy from quantum vacuum fields" via "engineered Casimir cavities." Founder: Dr. Harold "Sonny" White, formerly of NASA Eagleworks (EmDrive, "Q-thrusters"). Cited theoretical foundation: White et al., *Phys. Rev. Research* 8, 013264 (2026).
+The fastest way to understand what physicsOS produces is to read one full investigation end to end. Each example below links to a walkthrough under [`examples/`](examples/) that ties together the claim file, the audits, and the paper notes.
 
-The repository contains a complete two-pass audit of that claim, end to end. It is the canonical example of what the protocol produces:
+| Example | Domain | Verdict | Confidence |
+|---|---|---|---|
+| [Casimir Inc.'s "Quantum Energy Chip"](examples/casimir-quantum-energy-chip.md) | quantum vacuum / energy harvesting | `refuted` | 0.10 |
 
-- **Claim file** — [`claims/casimir-quantum-energy-chip-feasibility.md`](claims/casimir-quantum-energy-chip-feasibility.md). Status: `refuted`. Confidence: 0.10, rubric-capped. Eight-row evidence ledger.
-- **Audit 1: energy budget** — [`audits/2026-05-13-casimir-energy-budget/`](audits/2026-05-13-casimir-energy-budget/). Establishes the categorical obstructions: static Casimir reservoir at d=10 nm drains in 289 μs at the claimed power; dynamical Casimir effect would require boundary velocity `v/c > 2000`; passive operation in a single-temperature bath is forbidden by the second law.
-- **Audit 2: steelman energy ledger** — [`audits/2026-05-13-casimir-steelman-energy-ledger/`](audits/2026-05-13-casimir-steelman-energy-ledger/). Assumes the only theoretical loophole (Pinto-style modulated-boundary engine) and computes the best-case net power under maximally favorable parameters. Across a 45-point parameter sweep, **0 / 45 combinations yield positive net output**; minimum drive cost exceeds extracted Casimir work by **4.5 × 10⁷×**.
-- **Six paper notes** under [`papers/`](papers/) covering the press release, the cited PRR paper (deep-read via the 2015 NTRS precursor + multiple independent reviews because the PRR PDF is Cloudflare-gated), Jaffe's 2005 PRD paper that derives the Casimir effect *without* invoking vacuum energy, Chernodub's "perpetual motion of the fourth kind" paper, Pinto's patent family, and Moddel & Dmitriyeva's 2019 *Atoms* survey of ZPE-extraction proposals.
-
-You can read the conclusion in one paragraph (top of the claim file), inspect the math in one Python script per audit, follow each cited source through to a structured note, or recompute the confidence from the ledger using the formula in [AGENTS.md §3.3](AGENTS.md#33-confidence-rubric). The agent's reasoning is not hiding anywhere.
-
-This is what the protocol is supposed to produce on every claim worth tracking.
+See [`examples/README.md`](examples/README.md) for the index and instructions on adding new examples.
 
 ---
 
