@@ -1,5 +1,17 @@
 # physicsOS
 
+<p align="center">
+  <img src="assets/physicsos-cover.jpg" alt="physicsOS cover: Auditable computational physics" width="100%">
+</p>
+
+<p align="center">
+  <img alt="auditable computational physics" src="https://img.shields.io/badge/auditable-computational%20physics-57B6FF?style=for-the-badge">
+  <img alt="research first" src="https://img.shields.io/badge/research-first-0B1220?style=for-the-badge">
+  <img alt="reproducible audits" src="https://img.shields.io/badge/reproducible-audits-2F80ED?style=for-the-badge">
+  <img alt="claim ledger" src="https://img.shields.io/badge/claim-ledger-8A63D2?style=for-the-badge">
+  <img alt="MIT license" src="https://img.shields.io/badge/license-MIT-586069?style=for-the-badge">
+</p>
+
 A working environment for a **computational physics agent**.
 
 The premise is simple: when an AI agent makes a physics claim, it should be backed by a paper you can read, an audit you can re-run, and a confidence number you can recompute. Not assistant priors. Not "as is well known…". An auditable trail or it didn't happen.
