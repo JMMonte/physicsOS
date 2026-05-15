@@ -1,0 +1,96 @@
+{
+  "audit_slug": "2026-05-15-ftl-causal-loop-kinematics",
+  "review_round": 1,
+  "created_at_utc": "20260515T025844Z",
+  "sandbox_path": "/tmp/physicsos-review-2026-05-15-ftl-causal-loop-kinematics-r1-20260515T025844Z",
+  "git_head_at_creation": "3d7330599cf7409ef3b4bbc8c5f10907741f42e9",
+  "protocol_versions": {
+    "CLAUDE.md_sha256": "4da9306a5934adee58523107fc5d9da3371fad29319611e11c968551df286995",
+    "AGENTS.md_sha256": "82a7a8cf5ebbffceb66b4b48d13e5babf7393f09343f9cbd8da48527319e4c83"
+  },
+  "audit_artifacts": {
+    "audit_script.py_sha256": "c0a42e0a4419418332387cf2afd8b36ee3fe328bd1bde25b0e058e10efbccb84",
+    "audit_premises_README.md_sha256": "ca7706de0f1ae468709068892906459e7d5cabf5f80cc8e29627237f732dc368",
+    "audit_raw_output.txt_sha256": "1d86480324b760caecfe2dd9bcd5b4bd09f6c4aba405f0f31ecd876c24907729"
+  },
+  "stripping": {
+    "stripped_frontmatter_fields": [
+      "verdict",
+      "peer_reviewed",
+      "reviewer_verdicts"
+    ],
+    "stripped_sections": [
+      "Result",
+      "Verdict",
+      "Caveats and unresolved",
+      "Changelog"
+    ]
+  },
+  "prompts": {
+    "devil_advocate_sha256": "c0af823c3727dc578ecd06e3f3720d762f65687fe8eb798f3b132ef8c88b8c79",
+    "source_fidelity_sha256": "0f6f529c6ece7759ebabf947c923eee2f602d3027bf9a95d4cf1232c70cbfd16",
+    "reproducibility_sha256": "9c03e9b3e623fa70a360e1c37c863b4920fa6df0cfc3cf6dd0d5bfddb5115e12"
+  },
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "82a7a8cf5ebbffceb66b4b48d13e5babf7393f09343f9cbd8da48527319e4c83",
+      "size_bytes": 18850
+    },
+    {
+      "path": "CLAUDE.md",
+      "sha256": "4da9306a5934adee58523107fc5d9da3371fad29319611e11c968551df286995",
+      "size_bytes": 4555
+    },
+    {
+      "path": "audit_premises_README.md",
+      "sha256": "ca7706de0f1ae468709068892906459e7d5cabf5f80cc8e29627237f732dc368",
+      "size_bytes": 4440
+    },
+    {
+      "path": "audit_raw_output.txt",
+      "sha256": "1d86480324b760caecfe2dd9bcd5b4bd09f6c4aba405f0f31ecd876c24907729",
+      "size_bytes": 2009
+    },
+    {
+      "path": "audit_script.py",
+      "sha256": "c0a42e0a4419418332387cf2afd8b36ee3fe328bd1bde25b0e058e10efbccb84",
+      "size_bytes": 6397
+    },
+    {
+      "path": "audits_README.md",
+      "sha256": "e2ee18fc0c11cec35493aa7d1fa7214c4f02ccc720681532b92e23c8037a6141",
+      "size_bytes": 2442
+    },
+    {
+      "path": "claim_statement_only.md",
+      "sha256": "5a5b820bca34c41abe57005eab10cb778ec4ea4a8596f3b428f73f0d9c579ae9",
+      "size_bytes": 1289
+    },
+    {
+      "path": "claims_README.md",
+      "sha256": "c42f598fecf8964dd061d0c06f888f9a99b49a183717b8c87143613b9df6d2ff",
+      "size_bytes": 1772
+    },
+    {
+      "path": "papers_README.md",
+      "sha256": "e1a1ac55512e96da8fd50e0d7d2dcebae8dab972b872bd2ca56b65527fc4cdc2",
+      "size_bytes": 1116
+    },
+    {
+      "path": "prompts/devil_advocate.md",
+      "sha256": "c0af823c3727dc578ecd06e3f3720d762f65687fe8eb798f3b132ef8c88b8c79",
+      "size_bytes": 2882
+    },
+    {
+      "path": "prompts/reproducibility.md",
+      "sha256": "9c03e9b3e623fa70a360e1c37c863b4920fa6df0cfc3cf6dd0d5bfddb5115e12",
+      "size_bytes": 2506
+    },
+    {
+      "path": "prompts/source_fidelity.md",
+      "sha256": "0f6f529c6ece7759ebabf947c923eee2f602d3027bf9a95d4cf1232c70cbfd16",
+      "size_bytes": 2529
+    }
+  ]
+}

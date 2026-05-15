@@ -1,0 +1,4 @@
+target,composition_evidence,pgm_evidence,delta_v_from_leo_km_s,source_quality,screen_verdict
+6178 (1986 DA),radar metallic + NIR metal-rich; ~85% metal / ~15% pyroxene,inferred from meteoritic metal analogs; no direct assay,7.157,"strong composition, weak PGM-grade, high delta-v","best known PGM prospecting target, not mine-ready"
+2016 ED85,NIR spectrum similar to 1986 DA; no radar confirmation,inferred from metal-rich analogs; no direct assay,7.376,"moderate composition, weak PGM-grade, high delta-v","prospecting watchlist, less secure than 1986 DA"
+7474 (1992 TC),reported M-type; not checked here against modern spectroscopy,no PGM-grade evidence found in this screen,5.619,"better accessibility, weak composition/PGM evidence","characterization candidate, not a mine-ready target"

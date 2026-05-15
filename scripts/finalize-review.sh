@@ -38,7 +38,7 @@ for r in "${EXPECTED_REPORTS[@]}"; do
   if [ ! -f "$REPORTS_DIR/$r" ]; then
     missing+=("$r (file does not exist)")
   else
-    size=$(stat -f %z "$REPORTS_DIR/$r" 2>/dev/null || stat -c %s "$REPORTS_DIR/$r")
+    size=$(stat -c %s "$REPORTS_DIR/$r" 2>/dev/null || stat -f %z "$REPORTS_DIR/$r")
     if [ "$size" -lt 200 ]; then
       missing+=("$r (suspiciously small: ${size} bytes)")
     fi
@@ -46,7 +46,7 @@ for r in "${EXPECTED_REPORTS[@]}"; do
 done
 
 if [ "${#missing[@]}" -gt 0 ]; then
-  echo "error: review incomplete — the following reports are missing or trivially small:" >&2
+  echo "error: review incomplete -- the following reports are missing or trivially small:" >&2
   printf '  - %s\n' "${missing[@]}" >&2
   echo "" >&2
   echo "sandbox preserved at: $SANDBOX" >&2

@@ -1,0 +1,95 @@
+{
+  "audit_slug": "2026-05-15-dorrington-bemr-delta-v-thresholds",
+  "review_round": 1,
+  "created_at_utc": "20260515T030652Z",
+  "sandbox_path": "/tmp/physicsos-review-2026-05-15-dorrington-bemr-delta-v-thresholds-r1-20260515T030652Z",
+  "git_head_at_creation": "3d7330599cf7409ef3b4bbc8c5f10907741f42e9",
+  "protocol_versions": {
+    "CLAUDE.md_sha256": "4da9306a5934adee58523107fc5d9da3371fad29319611e11c968551df286995",
+    "AGENTS.md_sha256": "82a7a8cf5ebbffceb66b4b48d13e5babf7393f09343f9cbd8da48527319e4c83"
+  },
+  "audit_artifacts": {
+    "audit_script.py_sha256": "0c0e67c93a7e9157d9899710d173f0eee1a7721681422d66fc65a33a354e0ffd",
+    "audit_premises_README.md_sha256": "63fcfd992d096203844b8fbbfcd9a9db6f7b0f8ab7102d07d7927e9f52851d06",
+    "audit_raw_output.txt_sha256": "c2298da01c753d8fa22091737a3396b5505d6806fed17d78efd885fd0dd60e27"
+  },
+  "stripping": {
+    "stripped_frontmatter_fields": [
+      "verdict",
+      "peer_reviewed",
+      "reviewer_verdicts"
+    ],
+    "stripped_sections": [
+      "Result",
+      "Verdict",
+      "Changelog"
+    ]
+  },
+  "prompts": {
+    "devil_advocate_sha256": "0409b5093cd817edf92ca3eccf58a51ed0d5afb8acf4b7259576998bf16a2b9f",
+    "source_fidelity_sha256": "1df1b956a0ef12cc75de3eab1cd1ced122a1c84c7bac9e0454f3277b17d5d903",
+    "reproducibility_sha256": "43ef4146e2b8ddecc2ffbe854cf26d3324715243b9eddf3719dbf75968e4a219"
+  },
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "82a7a8cf5ebbffceb66b4b48d13e5babf7393f09343f9cbd8da48527319e4c83",
+      "size_bytes": 18850
+    },
+    {
+      "path": "CLAUDE.md",
+      "sha256": "4da9306a5934adee58523107fc5d9da3371fad29319611e11c968551df286995",
+      "size_bytes": 4555
+    },
+    {
+      "path": "audit_premises_README.md",
+      "sha256": "63fcfd992d096203844b8fbbfcd9a9db6f7b0f8ab7102d07d7927e9f52851d06",
+      "size_bytes": 6509
+    },
+    {
+      "path": "audit_raw_output.txt",
+      "sha256": "c2298da01c753d8fa22091737a3396b5505d6806fed17d78efd885fd0dd60e27",
+      "size_bytes": 2527
+    },
+    {
+      "path": "audit_script.py",
+      "sha256": "0c0e67c93a7e9157d9899710d173f0eee1a7721681422d66fc65a33a354e0ffd",
+      "size_bytes": 14662
+    },
+    {
+      "path": "audits_README.md",
+      "sha256": "e2ee18fc0c11cec35493aa7d1fa7214c4f02ccc720681532b92e23c8037a6141",
+      "size_bytes": 2442
+    },
+    {
+      "path": "claim_statement_only.md",
+      "sha256": "d9b9a33e8e489f78643ca0cda8ae5db30f979182f48fe6971bd4139b1eb90e21",
+      "size_bytes": 1634
+    },
+    {
+      "path": "claims_README.md",
+      "sha256": "c42f598fecf8964dd061d0c06f888f9a99b49a183717b8c87143613b9df6d2ff",
+      "size_bytes": 1772
+    },
+    {
+      "path": "papers_README.md",
+      "sha256": "e1a1ac55512e96da8fd50e0d7d2dcebae8dab972b872bd2ca56b65527fc4cdc2",
+      "size_bytes": 1116
+    },
+    {
+      "path": "prompts/devil_advocate.md",
+      "sha256": "0409b5093cd817edf92ca3eccf58a51ed0d5afb8acf4b7259576998bf16a2b9f",
+      "size_bytes": 2898
+    },
+    {
+      "path": "prompts/reproducibility.md",
+      "sha256": "43ef4146e2b8ddecc2ffbe854cf26d3324715243b9eddf3719dbf75968e4a219",
+      "size_bytes": 2522
+    },
+    {
+      "path": "prompts/source_fidelity.md",
+      "sha256": "1df1b956a0ef12cc75de3eab1cd1ced122a1c84c7bac9e0454f3277b17d5d903",
+      "size_bytes": 2545
+    }
+  ]
+}

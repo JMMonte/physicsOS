@@ -1,0 +1,5 @@
+scenario,launch_cost_per_kg_usd,sale_price_per_kg_usd,chemical_unconstrained_zero_npv_km_s,electric_unconstrained_zero_npv_km_s,chemical_capacity_zero_npv_km_s,electric_capacity_zero_npv_km_s
+"Starship 100 t, sale price held at Dorrington baseline",900.0,6722.892,4.913265990328679,6.432353578011455,3.9626246792041964,6.432353562821183
+"Starship 150 t, sale price held at Dorrington baseline",600.0,6722.892,5.648268296389721,6.593990303734574,4.650991010756835,6.593990303666477
+"Starship 100 t, sale price fixed at $5000/kg",900.0,5000.0,4.397879196175635,5.206952579684893,3.052166199979435,5.050111789788792
+"Starship 150 t, sale price fixed at $5000/kg",600.0,5000.0,5.108424011200234,5.34824809495315,3.676566704744431,5.192971887254997

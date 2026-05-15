@@ -9,6 +9,8 @@ Each example is a single Markdown file in this directory that ties together the 
 | Example | Domain | Verdict | Confidence |
 |---|---|---|---|
 | [Casimir Inc.'s "Quantum Energy Chip"](casimir-quantum-energy-chip.md) | quantum vacuum / energy harvesting | `refuted` | 0.10 |
+| [FTL Causality Ledger](ftl-causality-ledger.md) | relativity / causality / warp-drive claims | mixed: broad claim `refuted`, narrow claim `supported` | 0.10 / 0.70 |
+| [Asteroid Mining Economics And PGM Target Readiness](asteroid-mining-economics.md) | asteroid mining / mission economics / resource prospecting | mixed: threshold reproduction `supported`, PGM mine-readiness `supported` | 1.00 / 0.86 |
 
 ## Adding a new example
 

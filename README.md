@@ -36,7 +36,7 @@ Yet typical LLM physics output is none of that: a confident paragraph with no ci
 ## Quick start
 
 ```bash
-git clone <this-repo> physicsOS
+git clone https://github.com/JMMonte/physicsOS.git physicsOS
 cd physicsOS
 scripts/bootstrap.sh          # creates .venv with the scientific stack
 ```
@@ -85,6 +85,8 @@ The fastest way to understand what physicsOS produces is to read one full invest
 | Example | Domain | Verdict | Confidence |
 |---|---|---|---|
 | [Casimir Inc.'s "Quantum Energy Chip"](examples/casimir-quantum-energy-chip.md) | quantum vacuum / energy harvesting | `refuted` | 0.10 |
+| [FTL Causality Ledger](examples/ftl-causality-ledger.md) | relativity / causality / warp-drive claims | mixed | 0.10 / 0.70 |
+| [Asteroid Mining Economics And PGM Target Readiness](examples/asteroid-mining-economics.md) | asteroid mining / mission economics / resource prospecting | mixed | 1.00 / 0.86 |
 
 See [`examples/README.md`](examples/README.md) for the index and instructions on adding new examples.
 
@@ -116,7 +118,7 @@ A few choices that matter:
 
 ## Status
 
-Early. The protocol has been validated on one substantial worked example (the Casimir Inc. claim, with two independent audits and eight ledger entries) and a handful of tooling problems caught along the way. The tier-2 items in [memory/open-threads.md](memory/open-threads.md) are the obvious next things — a repo linter, a reading queue, and a generalized fetcher pattern for Crossref / INSPIRE / NIST.
+Early, but no longer single-example. The repo now has three public narrative tracks: the Casimir Inc. energy-harvesting refutation, an FTL causality ledger with sandboxed peer review on the antitelephone audit, and an asteroid-mining branch covering Dorrington-Olsen EBPS economics plus PGM target-readiness. The tier-2 items in [memory/open-threads.md](memory/open-threads.md) are the obvious next things — a repo linter, a reading queue, and a generalized fetcher pattern for Crossref / INSPIRE / NIST.
 
 Pull requests are welcome. The most useful contributions are probably:
 
