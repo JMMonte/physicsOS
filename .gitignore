@@ -8,9 +8,10 @@ venv/
 # Jupyter
 .ipynb_checkpoints/
 
-# Outputs that may be large or regenerable
-audits/**/outputs/*.png
-audits/**/outputs/*.pdf
+# Heavy/opaque outputs: regenerable and not human-readable in a report.
+# NOTE: figures (*.png/*.pdf) are intentionally NOT ignored — they must be
+# embedded in and committed with the audit/report so a human reading it on
+# GitHub sees the plot without running the script.
 audits/**/outputs/*.npy
 audits/**/outputs/*.npz
 audits/**/data/
