@@ -1,0 +1,45 @@
+{
+  "inputs": {
+    "z": 8.312,
+    "log_Mdust_Mgas": -3.6,
+    "log_Mdust_Mmetal": -0.95,
+    "M_dust_Msun": 1000000.0,
+    "T_dust_K": 91.0,
+    "12+log(O/H)": 7.86
+  },
+  "cosmology": {
+    "age_now_Gyr": 13.790811218995135,
+    "age_at_z_Myr": 603.8940730173565,
+    "astropy_age_at_z_Myr": 603.8467888987184
+  },
+  "internal": {
+    "Z_from_ratios_Zsun": 0.15765641820903792,
+    "Z_from_OH_Zsun": 0.14791083881682102,
+    "stated_Zsun": 0.15,
+    "M_metal_Msun": 8912509.381337455,
+    "M_gas_Msun": 3981071705.5349736,
+    "consistency_factor": 1.0658882031240877
+  },
+  "budget": {
+    "Mstar_range_Msun": [
+      148541823.02229092,
+      297083646.04458183
+    ],
+    "mean_SFR_Msun_per_yr": [
+      0.2459733083322076,
+      0.4919466166644152
+    ],
+    "SN_dust_range_Msun": [
+      8912.509381337455,
+      1782501.876267491
+    ],
+    "SNe_alone_sufficient": true
+  },
+  "degeneracy": {
+    "rest_lambda_um": 90.0,
+    "M_dust_at_40K_Msun": 11142632.164973918,
+    "factor_40K_vs_91K": 11.142632164973918,
+    "M_metal_Msun": 8912509.381337455,
+    "Mdust_at_40K_exceeds_Mmetal": true
+  }
+}

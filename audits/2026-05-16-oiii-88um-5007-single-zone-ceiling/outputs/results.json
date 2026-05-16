@@ -1,0 +1,26 @@
+{
+  "observed": {
+    "ratio": 0.26,
+    "err": 0.06
+  },
+  "measured_inputs": {
+    "Te_K": 17300.0,
+    "Te_err_K": 1500.0,
+    "ne_cm3": 730.0
+  },
+  "atomic_data": {
+    "radiative": "o_iii_atom_FFT04-SZ00.dat",
+    "collisional": "o_iii_coll_SSB14.dat",
+    "pyneb": "1.1.30"
+  },
+  "ceiling_at_Te17300_anyne": 0.12869518855723547,
+  "ceiling_at_Te15800_generous": 0.1507581959106392,
+  "R_at_measured_point": 0.03678360647815798,
+  "observed_over_ceiling": 2.020277548172428,
+  "gap_above_generous_ceiling": 0.10924180408936082,
+  "gap_sigma": 1.8206967348226804,
+  "reproducible_single_zone": false,
+  "ceiling_doublet_def_15800K": 0.1129169889015446,
+  "Te_for_ceiling_eq_026_K": 12200.0,
+  "sanity_5007_over_4959": 2.98396900697186
+}
