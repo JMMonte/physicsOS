@@ -53,6 +53,10 @@ The ceiling is exactly the n_e→0 limit (88μm is collisionally quenched above 
 
 The statement "above single-zone predictions at *any* electron density" is **only meaningful because T_e is independently pinned high by [OIII]4363**. R = ε(88)/ε(5007) falls steeply with T_e (5007 ∝ exp(−2.9×10⁴/T_e); 88μm T-flat). With T_e *free*, the single-zone ceiling reaches 0.26 for T_e ≲ **12200 K** and diverges at low T_e. The measured 17300 K sits well above that crossover, so the anomaly is real *given the measured temperature* — but it is a conditional, not an absolute, statement about O III. (My first pass scanned T_e freely and spuriously found 0.26 trivially reachable; sourcing the measured T_e from the full text corrected this.)
 
+![O III [OIII]88μm/5007 single-zone audit: (left) ratio vs n_e at the measured T_e ±1σ — every curve stays far below the observed 0.26 band, ceiling ≈0.13; (right) the single-zone ceiling vs T_e, crossing 0.26 only at T_e ≲ 12.2 kK, well below the measured 17300 K band.](outputs/oiii_ratio_audit.png)
+
+*Figure — Left: at the measured T_e, no electron density reaches 0.26 (single-zone ceiling 0.13; at the measured n_e=730 the prediction is only 0.037). Right: the ceiling falls steeply with T_e, so the anomaly exists only because [OIII]4363 pins T_e high. Data behind this figure: `outputs/R_vs_ne_atTe.csv`, `outputs/ceiling_vs_Te.csv`, `outputs/results.json`.*
+
 ## Result
 
 At the measured T_e = 17300 ± 1500 K, no single dust-free photoionized O III zone reproduces 0.26 at any n_e; the intrinsic ceiling is ≈0.13 (≤0.15 even at −1σ T_e). The observation is ~2× / ~1.8–2.2σ above that ceiling. This is consistent with the paper's interpretation that the optical [OIII]5007 is suppressed (dust and/or a physically distinct, denser/cooler optical-emitting zone), since extinction or zone-separation raises the observed 88μm/5007 above the single-zone intrinsic value.

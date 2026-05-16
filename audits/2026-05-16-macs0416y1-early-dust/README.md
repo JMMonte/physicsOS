@@ -36,6 +36,10 @@ Order-of-magnitude + numerical, four layers: (1) cosmic time at z=8.312 (manual 
 
 See `audit.py`; outputs in `outputs/` (`results.json`, `Tdust_Mdust_curve.csv`, `audit_summary.png`).
 
+![MACS0416-Y1 early-dust audit: (left) cosmic time vs redshift, marking 604 Myr at z=8.312; (right) inferred M_dust vs assumed T_dust, showing the steep degeneracy and that a canonical ~40 K solution would exceed the total metal mass (purple dashed, unphysical).](outputs/audit_summary.png)
+
+*Figure — Left: only 604 Myr of cosmic time is available at z=8.312. Right: at fixed observed flux, inferred M_dust falls ×11 going from 40→91 K; the 40 K point sits above the metal-mass ceiling, so the high T_dust is required for the budget to close. Data behind this figure: `outputs/Tdust_Mdust_curve.csv`, `outputs/results.json`.*
+
 **Cosmology.** Flat ΛCDM gives cosmic age **603.9 Myr** at z=8.312 (manual quadrature vs astropy: rel. err 7.8×10⁻⁵). That is the entire dust-formation budget.
 
 **Internal consistency.** From the two stated ratios, M_metal/M_gas = 10^(−3.60) / 10^(−0.95) = 2.24×10⁻³ → **Z ≈ 0.16 Z☉**, vs **0.15 Z☉** independently from 12+log(O/H)=7.86. Agreement to 7% — the dust/gas/metal numbers are mutually consistent. Implied absolute masses: M_metal ≈ 8.9×10⁶ M☉, M_gas ≈ 4.0×10⁹ M☉.
