@@ -20,6 +20,11 @@ matplotlib>=3.9,<4
 pint>=0.24,<1
 astropy>=6.1,<8
 
+# Nebular / atomic-physics diagnostics (vetted atomic data + references).
+# Added 2026-05-16 for the O III [OIII]88um/5007 audit; preferred over
+# hand-entering A-values / collision strengths (prime directive: no memory).
+pyneb>=1.1,<2
+
 # Notebook environment for exploratory audits
 jupyterlab>=4.2,<5
 ipykernel>=6.29,<7
